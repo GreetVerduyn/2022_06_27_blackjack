@@ -38,7 +38,22 @@ CODING STARTS HERE:
 - [x] 8.In the constructor of the Player class;
  * Make it expect the Deck object as a parameter.
  * Pass this Deck from the Blackjack constructor.
- * Now draw 2 cards for the player. You have to use an existing method for this from the Deck class.
+* Now draw 2 cards for the player. You have to use an existing method for this from the Deck class.
+
+  public function __construct(){
+  $this->deck = new Deck();
+  $this->deck->shuffle();
+  $this->player = new Player($this->deck);
+  $this->dealer = new Player($this->deck);
+  }
+
+ public function __construct(Deck $deck)
+    {
+        $deck->drawCard();
+        $deck->drawCard();
+    }
+
+
 - [] 9.Go back to the Player class and add the following logic in your empty methods:
  * getScore loops over all the cards and return the total value of that player.
  * hasLost will return the bool of the lost property.
