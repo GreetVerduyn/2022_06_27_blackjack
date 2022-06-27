@@ -31,11 +31,11 @@ CODING STARTS HERE:
  * getPlayer (returns the player object)
  * getDealer (returns the dealer object)
  * getDeck (returns the deck object)
-- [] 7. In the constructor do the following:
+- [x] 7. In the constructor do the following:
  * Instantiate the Player class twice, insert it into the player property and a dealer property.
  * Create a new deck object (code has already been written for you!).
  * Shuffle the cards with shuffle method on deck.
-- [] 8.In the constructor of the Player class;
+- [x] 8.In the constructor of the Player class;
  * Make it expect the Deck object as a parameter.
  * Pass this Deck from the Blackjack constructor.
  * Now draw 2 cards for the player. You have to use an existing method for this from the Deck class.
