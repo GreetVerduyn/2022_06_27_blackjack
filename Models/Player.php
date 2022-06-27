@@ -5,30 +5,42 @@ class Player{
 
     private $cards = [];
     private $lost = false;
+    private const MAX_SCORE = 21;
 
     public function __construct(Deck $deck)
-    {   array_push($this->cards, $deck->drawCard());
+    {
+        array_push($this->cards, $deck->drawCard());
         array_push($this->cards, $deck->drawCard());
      }
 
 
     public function getScore(): int
-    { $score = 0;
-        foreach ($this->cards AS $card)
-         { $score += $card->getValue();}
+    {
+        $score = 0;
+        foreach ($this->cards as $card) {
+            $score += $card->getValue();
+        }
 
         return $score;
     }
 
-    public function hit()
+    public function hit(Deck $deck): void
     {
-    }
-    public function surrender()
-    {
+        array_push($this->cards, $deck->drawCard());
+
+        if ($this->getScore() > self::MAX_SCORE) {
+            $this->lost = true;
+        }
     }
 
-    public function hasLost()
+    public function surrender(): void
     {
+        $this->lost = true;
+    }
+
+    public function hasLost(): bool
+    {
+        return $this->lost;
     }
 
 }
