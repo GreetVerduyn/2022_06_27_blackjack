@@ -52,7 +52,7 @@ class Dealer extends Player {
 
     public function hit(Deck $deck): void
     {
-        if ($this->getScore() < 14) {
+        if ($this->getScore() < 20) {
             parent::hit($deck);
         }
     }
