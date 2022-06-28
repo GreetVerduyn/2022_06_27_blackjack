@@ -13,7 +13,7 @@ if (!isset($_SESSION['game'])) {
 }
 
 
-//var_dump($game);
+//var_dump($_SESSION['game']);
 
 ?>
 
@@ -23,7 +23,8 @@ if(isset($_POST['hit_button'])){
     $_SESSION['game']->getPlayer()->hit($_SESSION['game']->getDeck());
 }
 if(isset($_POST['stand_button'])) {
-    $_SESSION['game']->getDealer()->hit($_SESSION['game']->getDeck());
+    $_SESSION['game']->getDealer()->hitD($_SESSION['game']->getDeck(), $_SESSION['game']->getPlayer()->getScore());
+    $winner = $_SESSION['game']->Winner();
 }
 
 if(isset($_POST['surrender_button'])) {
@@ -53,14 +54,20 @@ if(isset($_POST['playAgain_button'])) {
         <p>Your current score is: </p>
         <p>
             <?php
-            echo $_SESSION['game']->getPlayer()->getScore();
-            if ($_SESSION['game']->getPlayer()->getScore() === 21){
-                echo '<br/>';
-                echo 'You Win';
-            }else if ($_SESSION['game']->getPlayer()->hasLost()){
-                echo '<br/>';
-                echo 'You Lose, dealer Wins';
-            };
+              echo $_SESSION['game']->getPlayer()->getScore();
+              echo '<br/>';
+              if ($_SESSION['game']->getPlayer()->getScore() === 21) {
+                  echo '<br/>';
+                  echo '<h1>You Win</h1>';
+              }else if ($_SESSION['game']->getPlayer()->hasLost()){
+                  echo '<br/>';
+                  echo 'You Lose, dealer Wins';
+              }
+              if (isset($_POST['stand_button'])) {
+                      if ($_SESSION['game']->winner() != null) {
+                          echo $_SESSION['game']->winner() . ' wins the game.';
+                      }
+                  }
             ?>
         </p>
     </div>
@@ -78,9 +85,6 @@ if(isset($_POST['playAgain_button'])) {
             if(isset($_POST['stand_button']) && ($_SESSION['game']->getDealer()->hasLost())){
                 echo '<br/>';
                 echo 'Dealer lost';
-            }else if($_SESSION['game']->getPlayer()->getScore()>= $_SESSION['game']->getDealer()->getScore()){
-                echo '<br/>;
-                echo 'You win with';
             }
             ?>
         </h1>

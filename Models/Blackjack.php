@@ -36,6 +36,12 @@ class Blackjack{
     public function getDeck(): Deck {
         return $this->deck;
     }
-
+    public function winner (): string
+    {
+        if ($this->getPlayer()->getScore() <= 21 && $this->getPlayer()->getScore() > $this->getDealer()->getScore()){
+            return 'player';
+        }
+        return 'dealer';
+    }
 
 }

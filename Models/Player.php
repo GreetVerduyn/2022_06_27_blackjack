@@ -50,10 +50,12 @@ class Player{
 }
 class Dealer extends Player {
 
-    public function hit(Deck $deck): void
+    public function hitD(Deck $deck, int $playerScore): void
     {
-        if ($this->getScore() < 20) {
+        while ($this->getScore() <= $playerScore) {
             parent::hit($deck);
         }
     }
+
+
 }
