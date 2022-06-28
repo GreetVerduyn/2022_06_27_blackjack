@@ -13,7 +13,6 @@ class Player{
         array_push($this->cards, $deck->drawCard());
      }
 
-
     public function getScore(): int
     {
         $score = 0;
@@ -43,4 +42,17 @@ class Player{
         return $this->lost;
     }
 
+    public function getCards(): array {
+        return $this->cards;
+    }
+
+}
+class Dealer extends Player {
+
+    public function hit(Deck $deck): void
+    {
+        if ($this->getScore() < 14) {
+            parent::hit($deck);
+        }
+    }
 }

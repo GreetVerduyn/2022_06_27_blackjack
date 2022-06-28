@@ -4,6 +4,7 @@ require_once('./Models/Suit.php');
 require_once('./Models/Card.php');
 require_once('./Models/Deck.php');
 require_once ('./Models/Player.php');
+require_once ('./Models/Dealer.php');
 require_once ('./Models/Blackjack.php');
 
 session_start();
@@ -29,6 +30,8 @@ $_SESSION['game']=$game;
            class="button" value="Button2">stand</button>
     <button type="submit" name="surrender_button"
            class="button" value="Button3">surrender</button>
+    <button type="submit" name="playAgain_button"
+           class="button" value="Button4">play again</button>
 </form>
 
 
@@ -43,7 +46,19 @@ if(isset($_POST['stand_button'])) {
 if(isset($_POST['surrender_button'])) {
     $_SESSION['game']->getPlayer()->surrender();
 }
+
+if(isset($_POST['playAgain_button'])) {
+    session_unset();
+    $game = new Blackjack();
+    $_SESSION['game']=$game;
+}
+
+var_dump ( $_SESSION['game']->getPlayer()->getScore());
+var_dump ( $_SESSION['game']->getPlayer()->getCards());
+
 ?>
+
+
 </body>
 </html>
 

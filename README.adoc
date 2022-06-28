@@ -74,20 +74,14 @@ CODING STARTS HERE:
  * Take a moment to enjoy the view
  * Everything from the player is now done! Job well done!
 
-Dont forget to breathe
+### The dealer
+ * extend the player class and extend it to a newly created dealer class.
+ * Change the Blackjack class to create a new dealer object instead of a player object for the property of the dealer.
+ * Create a hit function that keeps drawing cards until the dealer has at least 15 points. The tricky part is that we also need the lost check we already had in the hit function of the player. We could just copy the code but duplicated code is never the solution, instead you can use the following code to call the old hit function:
 
-The dealer
-So far we are assuming the player and dealer play with the same rules, hence they share a class. There is of course an important difference: the dealer does keep playing with the function hit until he has at least 15.
+ parent::hit();
 
-To change this behavior, we have are going extend the player class and extend it to a newly created dealer class.
-
-Change the Blackjack class to create a new dealer object instead of a player object for the property of the dealer.
-
-Now create a hit function that keeps drawing cards until the dealer has at least 15 points. The tricky part is that we also need the lost check we already had in the hit function of the player. We could just copy the code but duplicated code is never the solution, instead you can use the following code to call the old hit function:
-
-parent::hit();
-
-Final push
+### Final push
 All classes are ready, now you just need to write some minimal glue in the index.php. The final result should be the following:
 
 When you the hit button call hit on player, then check the lost status of the player. You will need to pass a Deck variable to this function, you can use the Blackjack::getDeck() method for this.
