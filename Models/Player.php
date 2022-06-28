@@ -30,6 +30,7 @@ class Player{
         if ($this->getScore() > self::MAX_SCORE) {
             $this->lost = true;
         }
+
     }
 
     public function surrender(): void
