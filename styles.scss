@@ -1,6 +1,39 @@
 .cards{
-  font-size: 200px;
+  font-size: 170px;
 }
-body{
-  background-color: sandybrown;
+.game{
+  display: flex;
+  margin-right: 150px;
+  margin-left: 150px;
+  justify-content: space-between;
+
+  .player{
+    background-color: sandybrown;
+    width: 600px;
+  }
+
+  .dealer{
+  background-color: darkcyan;
+  width: 600px;
+  }
+}
+
+.text{
+  margin-left: 150px;
+  margin-top: 30px;
+  margin-bottom: 70px;
+  font-size: 40px;
+}
+
+.buttons{
+  display: flex;
+  margin-right: 150px;
+  justify-content: flex-end;
+
+  .button{
+    font-size: 20px;
+    width:130px
+  }
+
+
 }

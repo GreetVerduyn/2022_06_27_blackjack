@@ -48,7 +48,7 @@ if(isset($_POST['playAgain_button'])) {
     <title>Blackjack</title>
 </head>
 <body>
-<div>
+<div class="game flex-container">
     <div class="player">
         <h2>Player</h2>
         <p>Your current score is: </p>
@@ -58,86 +58,88 @@ if(isset($_POST['playAgain_button'])) {
             echo '<br/>';
             ?>
         </p>
-    </div>
-    <div><?php
-        foreach ($_SESSION['game']->getPlayer()->getCards() as $index => $value):?>
-            <span class="cards"> <?= $value->getUnicodeCharacter() ?></span>
+        <div><?php
+            foreach ($_SESSION['game']->getPlayer()->getCards() as $index => $value):?>
+                <span class="cards"> <?= $value->getUnicodeCharacter() ?></span>
 
-        <?php
-        endforeach
-        ?>
-    </div>
-
-    <div>
-        <p>
             <?php
-            if ($_SESSION['game']->getPlayer()->getScore() === 21) {
-                echo '<br/>';
-                echo '<h1>You Win</h1>';
-            } else if ($_SESSION['game']->getPlayer()->hasLost()) {
-                echo '<br/>';
-                echo 'You Lose, dealer Wins';
-            }
-            if (isset($_POST['stand_button'])) {
-                if ($_SESSION['game']->winner() != null) {
-                    echo $_SESSION['game']->winner() . ' wins the game.';
-                }
-            }
+            endforeach
             ?>
-        </p>
+        </div>
     </div>
 
+    <div class="dealer">
+        <h2>Dealer</h2>
+        <div><?php
+            if (isset($_POST['stand_button'])) {?>
+                <p>Dealers score is: </p>
+                <?php echo $_SESSION['game']->getDealer()->getScore();
+            }?>
+        </div>
+        <div>
+            <p> <?php
+                if (isset($_POST['stand_button'])) {
 
-</div>
-<div>
-    <h2>Dealer</h2>
-    <div><?php
-        if (isset($_POST['stand_button'])) {
-        echo $_SESSION['game']->getDealer()->getScore();
-        }?>
-    </div>
-    <div>
-        <p> <?php
-            if (isset($_POST['stand_button'])) {
-
-                foreach ($_SESSION['game']->getDealer()->getCards() as $index => $value){?>
-                <span class="cards"> <?= $value->getUnicodeCharacter() ?> </span>
-                <?php
+                    foreach ($_SESSION['game']->getDealer()->getCards() as $index => $value){?>
+                        <span class="cards"> <?= $value->getUnicodeCharacter() ?> </span>
+                        <?php
+                    }
+                }else {?>
+                    <span class="cards"> <?= $_SESSION['game']->getDealer()->getCards()[0]->getUnicodeCharacter() ?></span>
+                    <?php
                 }
-            }else {?>
-                <span class="cards"> <?= $_SESSION['game']->getDealer()->getCards()[0]->getUnicodeCharacter() ?></span>
-                <?php
-                }
-
-
-
                 ?>
-        </p>
+            </p>
+        </div>
+       <!--<div>
+         //   <h1>
+          //     <?php
+          //   if (isset($_POST['stand_button']) && ($_SESSION['game']->getDealer()->hasLost())) {
+          //     echo '<br/>';
+          //          echo 'Dealer lost';
+          //      }
+                ?>
+          //  </h1>
+       //</div>-->
+
     </div>
-    <div>
-        <h1>
-            <?php
-            if (isset($_POST['stand_button']) && ($_SESSION['game']->getDealer()->hasLost())) {
-                echo '<br/>';
-                echo 'Dealer lost';
-            }
-            ?>
-        </h1>
-    </div>
+
+
+
 
 </div>
+<div class="text">
+    <p>
+        <?php
+        if ($_SESSION['game']->getPlayer()->getScore() === 21) {
+            echo '<br/>';
+            echo '<h1>You Win</h1>';
+        } else if ($_SESSION['game']->getPlayer()->hasLost()) {
+            echo '<br/>';
+            echo 'You Lose, dealer Wins';
+        }
+        if (isset($_POST['stand_button'])) {
+            if ($_SESSION['game']->winner() != null) {
+                echo $_SESSION['game']->winner() . ' wins the game.';
+            }
+        }
+        ?>
+    </p>
+</div>
 
+<div class="buttons">
+    <form method="post" class="selectionForm">
+        <button type="submit" name="hit_button" <?php if (isset($_POST['stand_button']) || $_SESSION['game']->getPlayer()->hasLost() || $_SESSION['game']->getPlayer()->getScore()>=21) { echo 'disabled';} ?>
+                class="button" value="Button1">hit</button>
+        <button type="submit" name="stand_button" <?php if ($_SESSION['game']->getPlayer()->getScore()>=21) { echo 'disabled';} ?>
+                class="button" value="Button2">stand</button>
+        <button type="submit" name="surrender_button"
+                class="button" value="Button3">surrender</button>
+        <button type="submit" name="playAgain_button"
+                class="button" value="Button4">play again</button>
+    </form>
+</div>
 
-<form method="post">
-    <button type="submit" name="hit_button" <?php if (isset($_POST['stand_button']) || $_SESSION['game']->getPlayer()->hasLost()) { echo 'disabled';} ?>
-           class="button" value="Button1">hit</button>
-    <button type="submit" name="stand_button"
-           class="button" value="Button2">stand</button>
-    <button type="submit" name="surrender_button"
-           class="button" value="Button3">surrender</button>
-    <button type="submit" name="playAgain_button"
-           class="button" value="Button4">play again</button>
-</form>
 
 
 
