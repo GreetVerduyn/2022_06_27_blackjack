@@ -81,11 +81,11 @@ if(isset($_POST['playAgain_button'])) {
                 if (isset($_POST['stand_button'])) {
 
                     foreach ($_SESSION['game']->getDealer()->getCards() as $index => $value){?>
-                        <span class="cards"> <?= $value->getUnicodeCharacter() ?> </span>
+                        <span class="cards"> <?= $value->getUnicodeCharacter(true) ?> </span>
                         <?php
                     }
                 }else {?>
-                    <span class="cards"> <?= $_SESSION['game']->getDealer()->getCards()[0]->getUnicodeCharacter() ?></span>
+                    <span class="cards"> <?= $_SESSION['game']->getDealer()->getCards()[0]->getUnicodeCharacter(true) ?></span>
                     <?php
                 }
                 ?>
