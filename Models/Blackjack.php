@@ -25,7 +25,7 @@ class Blackjack{
         return $this->player;
     }
     /**
-     * @return Player
+     * @return Dealer
      */
     public function getDealer(): Dealer {
         return $this->dealer;
@@ -36,8 +36,15 @@ class Blackjack{
     public function getDeck(): Deck {
         return $this->deck;
     }
-    public function winner (): string
-    {
+
+
+    public function winner (): string {
+        if ($this->getPlayer()->hasLost()){
+            return 'dealer';
+        }
+        if ($this->getDealer()->hasLost()){
+            return 'player';
+        }
         if ($this->getPlayer()->getScore() <= 21 && $this->getPlayer()->getScore() > $this->getDealer()->getScore()){
             return 'player';
         }

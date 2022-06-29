@@ -37,14 +37,14 @@ if(isset($_POST['playAgain_button'])) {
     $_SESSION['game']=$game;
 }
 
-
-//var_dump ( $_SESSION['game']->getPlayer()->getCards());
+//var_dump ($_SESSION['game']->getPlayer()->getCards());
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
+    <link rel="stylesheet" href="styles.css">
     <title>Blackjack</title>
 </head>
 <body>
@@ -54,42 +54,76 @@ if(isset($_POST['playAgain_button'])) {
         <p>Your current score is: </p>
         <p>
             <?php
-              echo $_SESSION['game']->getPlayer()->getScore();
-              echo '<br/>';
-              if ($_SESSION['game']->getPlayer()->getScore() === 21) {
-                  echo '<br/>';
-                  echo '<h1>You Win</h1>';
-              }else if ($_SESSION['game']->getPlayer()->hasLost()){
-                  echo '<br/>';
-                  echo 'You Lose, dealer Wins';
-              }
-              if (isset($_POST['stand_button'])) {
-                      if ($_SESSION['game']->winner() != null) {
-                          echo $_SESSION['game']->winner() . ' wins the game.';
-                      }
-                  }
+            echo $_SESSION['game']->getPlayer()->getScore();
+            echo '<br/>';
             ?>
         </p>
     </div>
+    <div><?php
+        foreach ($_SESSION['game']->getPlayer()->getCards() as $index => $value):?>
+            <span class="cards"> <?= $value->getUnicodeCharacter() ?></span>
+
+        <?php
+        endforeach
+        ?>
+    </div>
+
     <div>
-        <h2>Dealer</h2>
+        <p>
+            <?php
+            if ($_SESSION['game']->getPlayer()->getScore() === 21) {
+                echo '<br/>';
+                echo '<h1>You Win</h1>';
+            } else if ($_SESSION['game']->getPlayer()->hasLost()) {
+                echo '<br/>';
+                echo 'You Lose, dealer Wins';
+            }
+            if (isset($_POST['stand_button'])) {
+                if ($_SESSION['game']->winner() != null) {
+                    echo $_SESSION['game']->winner() . ' wins the game.';
+                }
+            }
+            ?>
+        </p>
+    </div>
+
+
+</div>
+<div>
+    <h2>Dealer</h2>
+    <div><?php
+        if (isset($_POST['stand_button'])) {
+        echo $_SESSION['game']->getDealer()->getScore();
+        }?>
+    </div>
+    <div>
         <p> <?php
-            if(isset($_POST['stand_button'])){
-                echo $_SESSION['game']->getDealer()->getScore();
-            };
-            ?> </p>
+            if (isset($_POST['stand_button'])) {
+
+                foreach ($_SESSION['game']->getDealer()->getCards() as $index => $value){?>
+                <span class="cards"> <?= $value->getUnicodeCharacter() ?> </span>
+                <?php
+                }
+            }else {?>
+                <span class="cards"> <?= $_SESSION['game']->getDealer()->getCards()[0]->getUnicodeCharacter() ?></span>
+                <?php
+                }
+
+
+
+                ?>
+        </p>
     </div>
     <div>
         <h1>
             <?php
-            if(isset($_POST['stand_button']) && ($_SESSION['game']->getDealer()->hasLost())){
+            if (isset($_POST['stand_button']) && ($_SESSION['game']->getDealer()->hasLost())) {
                 echo '<br/>';
                 echo 'Dealer lost';
             }
             ?>
         </h1>
     </div>
-
 
 </div>
 
@@ -111,4 +145,3 @@ if(isset($_POST['playAgain_button'])) {
 
 </body>
 </html>
-
